@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const FooterArea = styled.div`
   .mainFooter {
     background: var(--LightSmoke);
     border-bottom: 4px solid var(--DarkColor);
     box-shadow: 0px -6px 4px rgba(0, 0, 0, 0.25);
-    padding-bottom: 2rem;
+    padding-bottom: 4rem;
     a {
       text-decoration: none;
       color: var(--DarkSecondary);
@@ -19,7 +19,7 @@ export const FooterArea = styled.div`
     .footerBrand {
       text-decoration: none;
       img {
-        width: 280px;
+        width: 240px;
         @media (max-width: 992px) {
           width: 170px;
         }
@@ -48,6 +48,7 @@ export const FooterArea = styled.div`
       }
     }
     .infoLink {
+      padding-left: 10px;
       svg {
         color: var(--MainColor);
         margin: 0 0.5rem;

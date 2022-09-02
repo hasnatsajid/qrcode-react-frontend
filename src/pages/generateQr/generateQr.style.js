@@ -1,13 +1,15 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const GenerateLogo = styled.div`
   width: 400px;
   margin: 0 auto;
+  height: 116px;
   @media (max-width: 575px) {
     width: 300px;
   }
   img {
     width: 100%;
+    height: 100%;
   }
 `;
 
@@ -79,8 +81,8 @@ export const GenerateArea = styled.div`
           }
         }
         &::after {
-          content: "";
-          background-image: url("/images/dropdown-icon.svg");
+          content: '';
+          background-image: url('/images/dropdown-icon.svg');
           background-repeat: no-repeat;
           background-size: cover;
           position: absolute;
@@ -89,8 +91,7 @@ export const GenerateArea = styled.div`
           transform: translateY(-50%);
           width: 18px;
           height: 16px;
-          filter: invert(32%) sepia(27%) saturate(7026%) hue-rotate(203deg)
-            brightness(98%) contrast(111%);
+          filter: invert(32%) sepia(27%) saturate(7026%) hue-rotate(203deg) brightness(98%) contrast(111%);
           display: none;
         }
         .ant-select-arrow {

@@ -1,3 +1,4 @@
+// const API_URL = 'http://localhost:3001';
 const API_URL = 'https://qrprinttechnovation.herokuapp.com';
 
 export const generateQR = async (data) => {

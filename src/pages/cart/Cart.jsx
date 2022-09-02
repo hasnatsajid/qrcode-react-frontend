@@ -1,20 +1,134 @@
-import React from 'react';
-import { Button, Input, Form } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Input, Form, Modal } from 'antd';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { CartArea } from './cart.style';
 import { createOrder } from '../../hooks/requests';
 
-const Cart = () => {
-  const onPlacingOrder = async (values) => {
-    console.log(values);
+import { CardElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 
-    const res = await createOrder(values);
+import { useSelector } from 'react-redux';
+import PaymentForm from '../../components/PaymentForm';
+
+const Shipping = 10;
+
+const Items = [
+  {
+    name: 'Design # 1',
+    image: '/images/qr-code-scanner.svg',
+    price: 99,
+  },
+  {
+    name: 'Design # 2',
+    image: '/images/qr-code-scanner.svg',
+    price: 89,
+  },
+];
+
+const Cart = () => {
+  const cartItems = useSelector((state) => state.cart);
+  const qrImages = cartItems.map((item) => item.qrImage);
+  const [amount, setAmount] = useState(0);
+  const [orderItems, setOrderItems] = useState({});
+
+  // Stripe Modal
+  const [visible, setVisible] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalText, setModalText] = useState('Content of the modal');
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleOk = () => {
+    setModalText('The modal will be closed after two seconds');
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setVisible(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    console.log('Clicked cancel button');
+    setVisible(false);
+  };
+
+  const onPlacingOrder = async (values) => {
+    const orderItemList = {
+      ...values,
+      amount: `${amount}`,
+      qrImageLink: qrImages,
+    };
+
+    setOrderItems(orderItems);
+    console.log(orderItems);
+
+    const res = await createOrder(orderItems);
     console.log(res);
   };
 
+  const handleSubmit = async (event) => {
+    // We don't want to let default form submission happen here,
+    // which would refresh the page.
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      // Stripe.js has not yet loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
+      return;
+    }
+
+    const card = elements.getElement(CardElement);
+    const result1 = await stripe.createToken(card);
+
+    console.log('Result1 : ', result1.token.card.id);
+
+    setOrderItems((prev) => {
+      return {
+        ...prev,
+        paymentId: result1.token.card.id,
+        status: 'completed',
+      };
+    });
+
+    return;
+
+    const result = await stripe.confirmPayment({
+      //`Elements` instance that was used to create the Payment Element
+      elements,
+      confirmParams: {
+        return_url: 'http://localhost:3000/order',
+      },
+    });
+
+    if (result.error) {
+      // Show error to your customer (for example, payment details incomplete)
+      console.log(result.error.message);
+    } else {
+      // Your customer will be redirected to your `return_url`. For some payment
+      // methods like iDEAL, your customer will be redirected to an intermediate
+      // site first to authorize the payment, then redirected to the `return_url`.
+    }
+  };
+
+  useEffect(() => {
+    const initialValue = 0;
+    const total = Items.reduce((prev, curr) => prev + curr.price, initialValue);
+    setAmount(total);
+  }, []);
+
   return (
     <>
+      <Modal title="Card Details" visible={visible} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
+        <form onSubmit={handleSubmit}>
+          <CardElement />
+          {/* <PaymentElement /> */}
+          <button disabled={!stripe}>Submit</button>
+        </form>
+      </Modal>
       <CartArea>
         <Container>
           <Form
@@ -30,7 +144,7 @@ const Cart = () => {
                 <div className="payMethods">
                   <h2>Pay with</h2>
                   <div className="payButtons">
-                    <a href="#">
+                    <a href="#" onClick={showModal}>
                       <img src="/images/shop-pay.png" alt="click here" />
                     </a>
                     <a href="#">
@@ -115,7 +229,7 @@ const Cart = () => {
                         <Input placeholder="Country/Region" />
                       </Form.Item>
                     </Col>
-                    <Col md={4}>
+                    <Col md={3}>
                       <Form.Item
                         label=""
                         name="state"
@@ -129,7 +243,23 @@ const Cart = () => {
                         <Input placeholder="State/Territory" />
                       </Form.Item>
                     </Col>
-                    <Col md={4}>
+
+                    <Col md={3}>
+                      <Form.Item
+                        label=""
+                        name="city"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Please input City!',
+                          },
+                        ]}
+                      >
+                        <Input placeholder="City" />
+                      </Form.Item>
+                    </Col>
+
+                    <Col md={2}>
                       <Form.Item
                         label=""
                         name="zipCode"
@@ -163,16 +293,13 @@ const Cart = () => {
               <Col lg={4}>
                 <div className="results">
                   <div className="designs">
-                    <div className="designContent">
-                      <img src="/images/qr-code-scanner.svg" alt="click here" />
-                      <span>Design # 1</span>
-                      <span>$ 99.99</span>
-                    </div>
-                    <div className="designContent">
-                      <img src="/images/qr-code-scanner.svg" alt="click here" />
-                      <span>Design # 1</span>
-                      <span>$ 99.99</span>
-                    </div>
+                    {cartItems.map((item) => (
+                      <div className="designContent" key={item.name}>
+                        <img src={item.qrImage} alt="click here" />
+                        <span>{item.name}</span>
+                        <span>$ {item.price}</span>
+                      </div>
+                    ))}
                   </div>
                   <div className="discount">
                     <Input placeholder="Gift card or discount code" />
@@ -180,11 +307,11 @@ const Cart = () => {
                   </div>
                   <div className="subTotal">
                     <span>Subtotal</span>
-                    <span>$ 199.98</span>
+                    <span>$ {amount}</span>
                   </div>
                   <div className="shipping">
                     <span>Shipping</span>
-                    <span>$ 10</span>
+                    <span>$ {Shipping}</span>
                   </div>
                   <div className="total">
                     <div>
@@ -198,7 +325,7 @@ const Cart = () => {
                           },
                         ]}
                       >
-                        <p>$209.98</p>
+                        <p>${amount + 10}</p>
                       </Form.Item>
                     </div>
                     <span>including $ 18.18 in taxes</span>

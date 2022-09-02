@@ -4,9 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { Elements } from '@stripe/react-stripe-js';
+
+import { store } from './store/store';
+import { Provider } from 'react-redux';
+
+import { stripePromise } from './utils/stripe';
+
+const options = {
+  // passing the client secret obtained from the server
+  clientSecret: process.env.SECRET_KEY,
+};
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <Elements stripe={stripePromise}>
+        <App />
+      </Elements>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

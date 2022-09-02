@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { GenerateArea, GenerateLogo } from './generateQr.style';
 import { generateQR } from '../../hooks/requests';
 
-const GenerateQr = () => {
+const GenerateQr = ({ setQrImage }) => {
   const { Option } = Select;
   const [qrCode, setQrCode] = useState(0);
   const navigate = useNavigate();
@@ -25,7 +25,16 @@ const GenerateQr = () => {
     let res = await generateQR(wifiCanvas);
 
     if (res.status === true) {
+      setQrImage(res.file);
       navigate('../design', { replace: true });
+    }
+  };
+
+  const validatePassword = (rule, value, callback) => {
+    if (value && value.length < 6) {
+      callback('Password too small!');
+    } else {
+      callback();
     }
   };
 
@@ -65,6 +74,7 @@ const GenerateQr = () => {
                   required: true,
                   message: 'Please input your network password!',
                 },
+                { validator: validatePassword },
               ]}
             >
               <Input.Password placeholder="Password" />
@@ -86,7 +96,7 @@ const GenerateQr = () => {
               </Select>
             </Form.Item>
             <div className="generateImg">{qrCode === 2 ? <img src="/images/generate-qr-code.svg" /> : qrCode === 1 ? <Spin size="large" /> : ''}</div>
-            <Form.Item>
+            <Form.Item className="generateQrSubmit">
               {qrCode === 2 ? (
                 <Button htmlType="submit" className="generateBtn">
                   {/* <Link to="/design"> */}

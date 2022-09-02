@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 // Home-Section
 export const HomeSection = styled.div`
@@ -15,7 +15,7 @@ export const HomeSection = styled.div`
     right: 5.5rem;
     padding: 2rem;
     width: 100%;
-    max-width: 520px;
+    max-width: 500px;
     background: rgba(255, 255, 255, 0.7);
     box-shadow: -9px 10px 4px rgba(0, 0, 0, 0.25);
     border-radius: 0.5rem;
@@ -50,9 +50,14 @@ export const HomeSection = styled.div`
   }
 `;
 // Work-Section
+export const MobileArea = styled.div`
+  text-align: center;
+  margin: 5rem 0;
+  padding: 0 2rem;
+`;
 export const WorkArea = styled.div`
   text-align: center;
-  margin: 15rem 0;
+  margin: 10rem 0;
   padding: 0 2rem;
 `;
 export const WorkHeading = styled.h1`
@@ -107,7 +112,7 @@ export const ScanDesign = styled.div`
     }
   }
   a {
-    margin: 3rem 0;
+    margin: 3rem 0 6rem 0;
   }
 `;
 export const ScanImage = styled.div`
@@ -130,7 +135,7 @@ export const QuantitySection = styled.div`
   p {
     font-size: 1.5rem;
     font-weight: 600;
-    font-family: "Playfair Display", serif;
+    font-family: 'Playfair Display', serif;
     color: var(--DarkColor) !important;
     @media (max-width: 575px) {
       font-size: 0.8rem;

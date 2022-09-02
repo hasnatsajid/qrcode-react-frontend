@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Linear = styled.div`
-  width: 85px;
+  width: 100px;
   background-color: var(--MainColor);
 `;
 export const PrivacyArea = styled.div`

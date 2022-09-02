@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DesignArea = styled.div`
   margin: 6rem 0 12rem;
@@ -12,10 +12,14 @@ export const DesignArea = styled.div`
       }
       h1 {
         color: var(--DarkColor);
+
+        @media (max-width: 575px) {
+          margin: 0 auto 1rem auto;
+        }
       }
       div {
         @media (max-width: 575px) {
-          margin-left: auto;
+          margin: auto;
         }
       }
       a:first-child {
@@ -96,8 +100,8 @@ export const DesignArea = styled.div`
           vertical-align: top;
           position: relative;
           &::after {
-            content: "";
-            background-image: url("/images/dropdown-icon.svg");
+            content: '';
+            background-image: url('/images/dropdown-icon.svg');
             background-repeat: no-repeat;
             width: 10px;
             height: 10px;
@@ -275,7 +279,7 @@ export const DesignArea = styled.div`
       box-shadow: none;
       font-size: 1rem;
       font-weight: 500;
-      font-family: "Playfair Display", serif;
+      font-family: 'Playfair Display', serif;
     }
   }
 `;

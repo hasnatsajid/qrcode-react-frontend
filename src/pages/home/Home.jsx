@@ -2,7 +2,19 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import { Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
-import { Card, DeliversSection, DynamicCard, GenerateBtn, HomeSection, QuantitySection, ScanDesign, ScanImage, WorkArea, WorkHeading } from './home.style';
+import {
+  Card,
+  DeliversSection,
+  DynamicCard,
+  GenerateBtn,
+  HomeSection,
+  QuantitySection,
+  ScanDesign,
+  ScanImage,
+  WorkArea,
+  WorkHeading,
+  MobileArea,
+} from './home.style';
 
 const Home = () => {
   const cardData = [
@@ -41,6 +53,24 @@ const Home = () => {
           </div>
         </Container>
       </HomeSection>
+
+      <Container className="mobile-area">
+        <MobileArea>
+          <Row className="align-items-center" gutter={[40, 100]}>
+            <Col md={12}>
+              <img src="/images/my-mobiles.png" alt="click here" />
+            </Col>
+            <Col md={12}>
+              <p style={{ maxWidth: '400px' }}>
+                {' '}
+                lorem ipsum lorem lorem lorem ipsum lorem lorem lorem ipsum lorem lorem lorem ipsum lorem lorem lorem ipsum lorem lorem lorem ipsum lorem lorem
+                lorem ipsum lorem lorem lorem ipsum lorem lorem lorem ipsum lorem lorem lorem ipsum lorem lorem lorem ipsum lorem lorem lorem ipsum lorem lorem{' '}
+              </p>
+            </Col>
+          </Row>
+        </MobileArea>
+      </Container>
+
       <WorkArea>
         <WorkHeading>How it Works</WorkHeading>
         <Row gutter={[64, 0]}>
@@ -84,7 +114,9 @@ const Home = () => {
         </DynamicCard>
         <ScanDesign>
           <p>We also offer a variety size to print your QR WIFI Artwork. Both small and large format sizes from desktop decor to coffee shop entry.</p>
-          <GenerateBtn>Design Yours</GenerateBtn>
+          <Link to="/design">
+            <GenerateBtn>Design Yours</GenerateBtn>
+          </Link>
           <ScanImage>
             <img src="/images/scan-design-image.png" alt="click here" />
           </ScanImage>

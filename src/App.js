@@ -1,19 +1,22 @@
-import "./App.css";
-import "antd/dist/antd.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
-import Header from "./components/header/Header";
-import Home from "./pages/home/Home";
-import GenerateQr from "./pages/generateQr/GenerateQr";
-import Design from "./pages/design/Design";
-import Cart from "./pages/cart/Cart";
-import Order from "./pages/order/Order";
-import Footer from "./components/footer/Footer";
-import TrackOrder from "./pages/trackOrder/TrackOrder";
-import Privacy from "./pages/privacy/Privacy";
-import About from "./pages/about/About";
+import { useState } from 'react';
+import './App.css';
+import 'antd/dist/antd.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import Header from './components/header/Header';
+import Home from './pages/home/Home';
+import GenerateQr from './pages/generateQr/GenerateQr';
+import Design from './pages/design/Design';
+import Cart from './pages/cart/Cart';
+import Order from './pages/order/Order';
+import Footer from './components/footer/Footer';
+import TrackOrder from './pages/trackOrder/TrackOrder';
+import Privacy from './pages/privacy/Privacy';
+import About from './pages/about/About';
 
 function App() {
+  const [qrImage, setQrImage] = useState('');
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -21,8 +24,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/design" element={<Design />} />
-          <Route path="/generateQr" element={<GenerateQr />} />
+          <Route path="/design" element={<Design qrImage={qrImage} />} />
+          <Route path="/generateQr" element={<GenerateQr setQrImage={setQrImage} />} />
           <Route path="/order" element={<Order />} />
           <Route path="/trackOrder" element={<TrackOrder />} />
           <Route path="/privacy" element={<Privacy />} />

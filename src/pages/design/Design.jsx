@@ -1,25 +1,24 @@
-import React, { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { MdOutlineDeleteOutline, MdFileCopy } from "react-icons/md";
-import { BsPlusLg } from "react-icons/bs";
-import { Radio, Checkbox, Button, Select, Dropdown, Menu, Space } from "antd";
-import { Link } from "react-router-dom";
-import { DesignArea } from "./design.style";
+import React, { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { MdOutlineDeleteOutline, MdFileCopy } from 'react-icons/md';
+import { BsPlusLg } from 'react-icons/bs';
+import { Radio, Checkbox, Button, Select, Dropdown, Menu, Space } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import { DesignArea } from './design.style';
 
-const Design = () => {
-  const [dropValue, setDropValue] = useState("14 X 11");
-  const [colorsValue, setColorsValue] = useState("White");
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../store/slices/cartSlice';
+
+const Design = ({ qrImage }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [dropValue, setDropValue] = useState('14 X 11');
+  const [colorsValue, setColorsValue] = useState('White');
   const [selectValue, setSelectValue] = useState(21);
   const [imgQuality, setImgQuality] = useState(true);
   const { Option } = Select;
 
-  const array = [
-    "10 x 8 (DESK)",
-    "14 X 11",
-    "16 X 12",
-    "20 X 16",
-    "24 X 20 (CORPORATE)",
-  ];
+  const array = ['10 x 8 (DESK)', '14 X 11', '16 X 12', '20 X 16', '24 X 20 (CORPORATE)'];
 
   const handleClick = ({ key, value }) => {
     setDropValue(key);
@@ -49,6 +48,21 @@ const Design = () => {
       <Menu.Item key="Yellow">Yellow</Menu.Item>
     </Menu>
   );
+  const onAddingToCart = (e) => {
+    e.preventDefault();
+
+    const newItem = {
+      name: `Design # ${Math.floor(Math.random() * 10000)}`,
+      qrImage: '/images/qr-code-scanner.svg',
+      price: 99,
+    };
+
+    console.log(newItem);
+    dispatch(addToCart(newItem));
+
+    navigate('../cart');
+  };
+
   return (
     <>
       <DesignArea>
@@ -78,15 +92,14 @@ const Design = () => {
                   <span>Unsaved changes</span>
                   <div className="zoomButtons">
                     <div className="galleryButtons">
-                      <Button style={{ marginRight: "1rem" }}>
+                      <Button style={{ marginRight: '1rem' }}>
                         <img src="/images/hand-icon.svg" alt="click here" />
                       </Button>
                     </div>
                     <div className="zoomImage">
                       <Button
                         onClick={() => {
-                          if (selectValue > 0)
-                            setSelectValue((prev) => prev - 1);
+                          if (selectValue > 0) setSelectValue((prev) => prev - 1);
                         }}
                       >
                         -
@@ -119,14 +132,11 @@ const Design = () => {
                   <div className="productInfo">
                     <div className="infoHead">
                       <span>Size . {array.indexOf(dropValue) + 1}</span>
-                      <Dropdown overlay={sizesMenu} trigger={["click"]}>
+                      <Dropdown overlay={sizesMenu} trigger={['click']}>
                         <a onClick={(e) => e.preventDefault()}>
                           <Space>
                             <span>All Sizes</span>
-                            <img
-                              src="/images/dropdown-icon.svg"
-                              alt="click here"
-                            />
+                            <img src="/images/dropdown-icon.svg" alt="click here" />
                           </Space>
                         </a>
                       </Dropdown>
@@ -136,17 +146,14 @@ const Design = () => {
                       <span>{dropValue}</span>
                     </div>
                   </div>
-                  <h6 style={{ margin: "1rem 0" }}>Your design</h6>
+                  <h6 style={{ margin: '1rem 0' }}>Your design</h6>
                   <div className="productInfo">
                     <div className="infoHead">
                       <Radio className="collapseRadio">{colorsValue}</Radio>
-                      <Dropdown overlay={colorsMenu} trigger={["click"]}>
+                      <Dropdown overlay={colorsMenu} trigger={['click']}>
                         <a onClick={(e) => e.preventDefault()}>
                           <Space>
-                            <img
-                              src="/images/dropdown-icon.svg"
-                              alt="click here"
-                            />
+                            <img src="/images/dropdown-icon.svg" alt="click here" />
                           </Space>
                         </a>
                       </Dropdown>
@@ -154,9 +161,7 @@ const Design = () => {
                   </div>
                 </div>
                 <div className="printing">
-                  <span style={{ marginRight: "1rem" }}>
-                    Printing Settings:
-                  </span>
+                  <span style={{ marginRight: '1rem' }}>Printing Settings:</span>
                   <Checkbox>Print on sides</Checkbox>
                 </div>
                 <div className="uploadImg">
@@ -165,13 +170,9 @@ const Design = () => {
                     <div className="imageName">
                       <span>qr-code.png</span>
                       {imgQuality === true ? (
-                        <span style={{ color: "var(--MainColor)" }}>
-                          high resolution. (Print Quality)
-                        </span>
+                        <span style={{ color: 'var(--MainColor)' }}>high resolution. (Print Quality)</span>
                       ) : (
-                        <span style={{ color: "#f84a4a" }}>
-                          Low resolution (93 DPI)
-                        </span>
+                        <span style={{ color: '#f84a4a' }}>Low resolution (93 DPI)</span>
                       )}
                     </div>
                     <div className="imageIcons">
@@ -189,7 +190,9 @@ const Design = () => {
                 </Button>
               </div>
               <div className="addCart">
-                <Link to="/cart">Add to Cart</Link>
+                <Link to="/cart" onClick={onAddingToCart}>
+                  Add to Cart
+                </Link>
               </div>
             </Col>
           </Row>

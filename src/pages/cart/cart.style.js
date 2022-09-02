@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CartArea = styled.div`
   margin: 5rem 0 7rem;
@@ -79,7 +79,7 @@ export const CartArea = styled.div`
       color: var(--MainColor);
       font-size: 1.25rem;
       font-weight: 400;
-      font-family: "Playfair Display", serif;
+      font-family: 'Playfair Display', serif;
     }
     button {
       width: 232px;
@@ -94,6 +94,14 @@ export const CartArea = styled.div`
         font-weight: 500;
         font-size: 1rem;
       }
+
+      @media (max-width: 575px) {
+        margin-top: 1rem;
+      }
+    }
+
+    @media (max-width: 575px) {
+      flex-direction: column;
     }
   }
   .results {
@@ -143,7 +151,7 @@ export const CartArea = styled.div`
         outline: 0;
         span {
           font-size: 0.875rem;
-          font-family: "Playfair Display", serif;
+          font-family: 'Playfair Display', serif;
         }
       }
     }
@@ -159,7 +167,7 @@ export const CartArea = styled.div`
       margin-top: 1rem;
       padding-top: 0.5rem;
       &::after {
-        content: "";
+        content: '';
         width: 100%;
         height: 1px;
         background-color: var(--DarkColor);
