@@ -14,3 +14,7 @@ code {
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+.mobile-area {
+  margin-top: 10rem;
+}

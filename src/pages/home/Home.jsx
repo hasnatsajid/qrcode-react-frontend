@@ -58,7 +58,7 @@ const Home = () => {
         <MobileArea>
           <Row className="align-items-center" gutter={[40, 100]}>
             <Col md={12}>
-              <img src="/images/my-mobiles.png" alt="click here" />
+              <img src="/images/my-mobiles.png" alt="click here" width="100%" />
             </Col>
             <Col md={12}>
               <p style={{ maxWidth: '400px' }}>

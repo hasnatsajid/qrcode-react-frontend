@@ -10,13 +10,19 @@ const GenerateQr = ({ setQrImage }) => {
   const navigate = useNavigate();
 
   const handleCLick = () => {
+    navigate('../design');
+    // setQrCode(1);
+    // setTimeout(() => {
+    //   setQrCode(2);
+    // }, 1500);
+  };
+
+  const onSubmitQRcode = async (values) => {
     setQrCode(1);
     setTimeout(() => {
       setQrCode(2);
     }, 1500);
-  };
 
-  const onSubmitQRcode = async (values) => {
     const wifiCanvas = {
       ...values,
       hiddenSSID: false,
@@ -24,10 +30,12 @@ const GenerateQr = ({ setQrImage }) => {
 
     let res = await generateQR(wifiCanvas);
 
-    if (res.status === true) {
-      setQrImage(res.file);
-      navigate('../design', { replace: true });
-    }
+    console.log(res);
+
+    // if (res.status === true) {
+    setQrImage(res.file);
+    // navigate('../design');
+    // }
   };
 
   const validatePassword = (rule, value, callback) => {
@@ -98,13 +106,13 @@ const GenerateQr = ({ setQrImage }) => {
             <div className="generateImg">{qrCode === 2 ? <img src="/images/generate-qr-code.svg" /> : qrCode === 1 ? <Spin size="large" /> : ''}</div>
             <Form.Item className="generateQrSubmit">
               {qrCode === 2 ? (
-                <Button htmlType="submit" className="generateBtn">
+                <Button className="generateBtn" onClick={handleCLick}>
                   {/* <Link to="/design"> */}
                   Create your WIFI Canvas
                   {/* </Link> */}
                 </Button>
               ) : (
-                <Button onClick={handleCLick} className="generateBtn">
+                <Button htmlType="submit" className="generateBtn">
                   Generate QR
                 </Button>
               )}
