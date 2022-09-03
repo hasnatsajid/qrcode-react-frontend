@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { CartArea } from './cart.style';
 import { createOrder } from '../../hooks/requests';
+import { loadStripe } from '@stripe/stripe-js';
 
 import { CardElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
 
@@ -57,15 +58,53 @@ const Cart = () => {
   };
 
   const onPlacingOrder = async (values) => {
+    const item = {
+      price: 'price_1LdxBVLwxaQeH6Swvi7otcJz',
+      quantity: 1,
+    };
+
     const orderItemList = {
       ...values,
       amount: `${amount}`,
       qrImageLink: qrImages,
     };
 
-    setOrderItems(orderItems);
+    const checkoutOptions = {
+      lineItems: [item],
+      mode: 'payment',
+      successUrl: `${window.location.origin}/order`,
+      cancelUrl: `${window.location.origin}/cancel`,
+    };
+
+    let stripePromise;
+
+    const getStripe = () => {
+      if (!stripePromise) {
+        stripePromise = loadStripe('pk_test_51I3NaSLwxaQeH6SwVG0oERyzzTxah6UZpMr4Lnf0BweKTq3IUr1dFJpjjIOIszdMmKCE2F44hCDKNeO9TfdQ2k9K007jrA0FaH');
+      }
+
+      return stripePromise;
+    };
+
+    const redirectToCheckout = async () => {
+      console.log('redirectToCheckout');
+      const stripe = await getStripe();
+      console.log(stripe.elements()['_id']);
+
+      const orderWithId = { ...orderItemList, paymentId: stripe.elements()['_id'], status: 'completed' };
+
+      const { error } = await stripe.redirectToCheckout(checkoutOptions);
+      console.log('Stripe checkout error', error);
+    };
+
+    redirectToCheckout();
+
+    // return;
+
+    setOrderItems({ ...orderItemList });
     console.log(orderItems);
 
+    // const response = await apiRequest(orderItems);
     const res = await createOrder(orderItems);
     console.log(res);
   };
@@ -144,7 +183,7 @@ const Cart = () => {
                 <div className="payMethods">
                   <h2>Pay with</h2>
                   <div className="payButtons">
-                    <a href="#" onClick={showModal}>
+                    <a href="#">
                       <img src="/images/shop-pay.png" alt="click here" />
                     </a>
                     <a href="#">
