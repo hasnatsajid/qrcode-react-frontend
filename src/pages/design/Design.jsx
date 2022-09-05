@@ -78,7 +78,7 @@ const Design = ({ qrImage }) => {
                   </div>
                 </div>
                 <div className="galleryImage">
-                  <img src="/images/canvas-image.png" alt="click here" />
+                  <img src="/images/qr.svg" alt="click here" style={{ backgroundColor: colorsValue }} />
                 </div>
                 <div className="galleryFooter">
                   <div className="galleryButtons">
@@ -89,7 +89,7 @@ const Design = ({ qrImage }) => {
                       <img src="/images/redo-icon.svg" alt="click here" />
                     </Button>
                   </div>
-                  <span>Unsaved changes</span>
+                  {/* <span>Unsaved changes</span> */}
                   <div className="zoomButtons">
                     <div className="galleryButtons">
                       <Button style={{ marginRight: '1rem' }}>
@@ -164,9 +164,9 @@ const Design = ({ qrImage }) => {
                   <span style={{ marginRight: '1rem' }}>Printing Settings:</span>
                   <Checkbox>Print on sides</Checkbox>
                 </div>
-                <div className="uploadImg">
+                {/* <div className="uploadImg">
                   <div className="designImage">
-                    <img src="/images/design-image.svg" alt="click here" />
+                    <img src="/images/canvas-image.png" alt="click here" />
                     <div className="imageName">
                       <span>qr-code.png</span>
                       {imgQuality === true ? (
@@ -180,14 +180,14 @@ const Design = ({ qrImage }) => {
                       <MdOutlineDeleteOutline />
                     </div>
                   </div>
-                </div>
-                <Button className="addDesign">
+                </div> */}
+                {/* <Button className="addDesign">
                   <BsPlusLg />
                   <div>
                     <p>Add design</p>
                     <span>Print area size 4800 x 3600 px (300 DPI)</span>
                   </div>
-                </Button>
+                </Button> */}
               </div>
               <div className="addCart">
                 <Link to="/cart" onClick={onAddingToCart}>

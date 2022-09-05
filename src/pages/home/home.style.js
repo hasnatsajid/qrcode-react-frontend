@@ -113,6 +113,10 @@ export const ScanDesign = styled.div`
   }
   a {
     margin: 3rem 0 6rem 0;
+
+    @media (max-width: 575px) {
+      margin: 3rem 0 3rem 0;
+    }
   }
 `;
 export const ScanImage = styled.div`

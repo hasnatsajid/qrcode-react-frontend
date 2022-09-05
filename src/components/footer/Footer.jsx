@@ -1,13 +1,13 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { FaFacebookF } from "react-icons/fa";
-import { AiOutlineInstagram } from "react-icons/ai";
-import { GrLinkedinOption } from "react-icons/gr";
-import { BsTwitter } from "react-icons/bs";
-import { MdEmail } from "react-icons/md";
-import { FooterArea } from "./footer.style";
-import { Input } from "antd";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { FaFacebookF } from 'react-icons/fa';
+import { AiOutlineInstagram } from 'react-icons/ai';
+import { GrLinkedinOption } from 'react-icons/gr';
+import { BsTwitter } from 'react-icons/bs';
+import { MdEmail } from 'react-icons/md';
+import { FooterArea } from './footer.style';
+import { Input } from 'antd';
+import { Link } from 'react-router-dom';
 
 const Footer = (props) => {
   const { Search } = Input;
@@ -16,7 +16,7 @@ const Footer = (props) => {
       <FooterArea style={{ paddingBottom: props.pad }}>
         <div className="mainFooter">
           <Container>
-            <Row className="align-items-center">
+            <Row className="align-items-center pt-2">
               <Col xs={3}>
                 <a href="#" className="footerBrand">
                   <img src="/images/LOGO.svg" alt="click here" />
@@ -29,7 +29,7 @@ const Footer = (props) => {
                 <a href="#">Contact</a>
               </Col>
               <Col xs={4}>
-                <p style={{ marginBottom: "0" }}>
+                <p style={{ marginBottom: '0' }} className="subscribe">
                   Subscribe to keep up with new products
                 </p>
               </Col>
@@ -54,11 +54,7 @@ const Footer = (props) => {
                 </a>
               </Col>
               <Col sm={4} className="emailInput">
-                <Search
-                  placeholder="Email"
-                  enterButton="Subscribe"
-                  size="large"
-                />
+                <Search placeholder="Email" enterButton="Subscribe" size="large" />
               </Col>
             </Row>
           </Container>

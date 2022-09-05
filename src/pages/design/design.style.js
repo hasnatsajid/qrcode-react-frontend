@@ -216,6 +216,10 @@ export const DesignArea = styled.div`
       .designImage {
         display: flex;
         width: 100%;
+        img {
+          width: 44px;
+          height: 44px;
+        }
         @media (max-width: 1200px) {
           max-width: 100%;
         }
