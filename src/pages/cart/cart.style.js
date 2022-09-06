@@ -55,7 +55,7 @@ export const CartArea = styled.div`
     input {
       width: 100%;
       height: 40px;
-      border: 1px solid var(--MainColor);
+      border: 1px solid black;
       background-color: var(--LightColor);
       box-shadow: none !important;
       filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
@@ -64,7 +64,9 @@ export const CartArea = styled.div`
       margin: 1rem 0;
       outline: 0;
       &::placeholder {
-        color: var(--MainColor);
+        // color: var(--MainColor);
+        color: black;
+        opacity: 0.9;
         font-size: 1rem;
       }
     }

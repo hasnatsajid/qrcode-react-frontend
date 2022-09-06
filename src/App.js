@@ -13,6 +13,7 @@ import Footer from './components/footer/Footer';
 import TrackOrder from './pages/trackOrder/TrackOrder';
 import Privacy from './pages/privacy/Privacy';
 import About from './pages/about/About';
+import Contact from './pages/contact/Contact';
 
 function App() {
   const [qrImage, setQrImage] = useState('');
@@ -30,6 +31,7 @@ function App() {
           <Route path="/trackOrder" element={<TrackOrder />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
       </BrowserRouter>

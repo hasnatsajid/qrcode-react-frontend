@@ -8,6 +8,7 @@ import { DesignArea } from './design.style';
 
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../store/slices/cartSlice';
+import Qr from '../../components/Qr';
 
 const Design = ({ qrImage }) => {
   const navigate = useNavigate();
@@ -78,7 +79,8 @@ const Design = ({ qrImage }) => {
                   </div>
                 </div>
                 <div className="galleryImage">
-                  <img src="/images/qr.svg" alt="click here" style={{ backgroundColor: colorsValue }} />
+                  {/* <img src="/images/qr.svg" alt="click here" style={{ backgroundColor: colorsValue }} /> */}
+                  <Qr />
                 </div>
                 <div className="galleryFooter">
                   <div className="galleryButtons">

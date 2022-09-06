@@ -26,7 +26,7 @@ const Footer = (props) => {
                 <Link to="/about">About US</Link>
                 <Link to="/privacy">Privacy Policy</Link>
                 <Link to="/trackOrder">Where is my order</Link>
-                <a href="#">Contact</a>
+                <Link to="/contact">Contact</Link>
               </Col>
               <Col xs={4}>
                 <p style={{ marginBottom: '0' }} className="subscribe">
