@@ -1,8 +1,45 @@
 import './contact.scss';
+import { useState } from 'react';
+
+const API_URL = 'https://qrprinttechnovation.herokuapp.com';
 
 const Contact = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+
   const contactHandler = (e) => {
     e.preventDefault();
+  };
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch(`${API_URL}/api/v1/contact`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        Cookie: 'connect.sid=s%3ANIVoAGx28wleURxHGAFtFbc4Vc1iccDF.oEk4BoAi3gUVv3ljApeRsQ28JxocPVsVhclT%2FBhBnrk',
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        // lastName: 'Anwar',
+        email,
+        phone,
+        message,
+        // email: 'saad26273043@gmail.com',
+        // phone: '+923133467889',
+        // message: 'Testing',
+      }),
+    });
+
+    const data = await response.json();
+
+    console.log(data);
   };
 
   return (
@@ -28,37 +65,40 @@ const Contact = () => {
             <div className="form-row">
               <div className="form-input">
                 <label htmlFor="firstname">First Name:</label>
-                <input type="text" />
+                <input type="text" onChange={(e) => setFirstName(e.target.value)} />
               </div>
-              <div className="form-input">
+              <div className="form-input resp">
                 <label htmlFor="lastname">Last Name:</label>
-                <input type="text" />
+                <input type="text" onChange={(e) => setLastName(e.target.value)} />
               </div>
             </div>
             <div className="form-row">
               <div className="form-input">
                 <label htmlFor="email">Email:</label>
-                <input type="email" />
+                <input type="email" onChange={(e) => setEmail(e.target.value)} />
               </div>
-              <div className="form-input">
+              <div className="form-input resp">
                 <label htmlFor="phone">Phone #:</label>
-                <input type="tel" />
+                <input type="tel" onChange={(e) => setPhone(e.target.value)} />
               </div>
             </div>
             <div className="form-row">
               <div className="form-input">
                 <label htmlFor="phone">Subject:</label>
-                <input type="text" />
+                <input type="text" onChange={(e) => setSubject(e.target.value)} />
               </div>
             </div>
             <div className="form-row">
               <div className="form-input message">
                 <label htmlFor="phone">Your Message:</label>
-                <input type="text" />
+                <textarea name="" id=""></textarea>
+                {/* <input type="text" onChange={(e) => setMessage(e.target.value)} /> */}
               </div>
             </div>
             <div className="form-row">
-              <button className="contactBtn">Send Enquiry</button>
+              <button className="contactBtn" onClick={sendMessage}>
+                Send Enquiry
+              </button>
             </div>
           </form>
         </div>

@@ -154,6 +154,9 @@ export const DesignArea = styled.div`
           display: flex;
           justify-content: space-between;
           align-items: center;
+          .ant-radio {
+            display: none;
+          }
           .ant-dropdown-trigger {
             text-decoration: none;
             color: #000000;

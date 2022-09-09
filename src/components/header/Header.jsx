@@ -1,9 +1,9 @@
-import React from "react";
-import { Dropdown, Menu, Space } from "antd";
-import { Container } from "react-bootstrap";
-import { MdEmail } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { Head, HeadDropLink } from "./header.style";
+import React from 'react';
+import { Dropdown, Menu, Space } from 'antd';
+import { Container } from 'react-bootstrap';
+import { MdEmail } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { Head, HeadDropLink } from './header.style';
 
 const Header = () => {
   const menu = (
@@ -15,7 +15,7 @@ const Header = () => {
               <Link to="/">Home</Link>
             </HeadDropLink>
           ),
-          key: "0",
+          key: '0',
         },
         {
           label: (
@@ -23,7 +23,7 @@ const Header = () => {
               <Link to="/privacy">Privacy</Link>
             </HeadDropLink>
           ),
-          key: "1",
+          key: '1',
         },
         {
           label: (
@@ -31,11 +31,15 @@ const Header = () => {
               <Link to="/trackOrder">Where is my order?</Link>
             </HeadDropLink>
           ),
-          key: "3",
+          key: '3',
         },
         {
-          label: <HeadDropLink>Contact</HeadDropLink>,
-          key: "4",
+          label: (
+            <HeadDropLink>
+              <Link to="/contact">Contact</Link>
+            </HeadDropLink>
+          ),
+          key: '4',
         },
       ]}
     />
@@ -49,7 +53,7 @@ const Header = () => {
             <img src="/images/LOGO.svg" alt="click here" />
           </a>
           <div className="links">
-            <Dropdown overlay={menu} trigger={["click"]}>
+            <Dropdown overlay={menu} trigger={['click']}>
               <a onClick={(e) => e.preventDefault()}>
                 <Space>
                   <div className="toggler"></div>
