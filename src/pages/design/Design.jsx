@@ -80,19 +80,19 @@ const Design = ({ qrImage }) => {
                 </div>
                 <div className="galleryImage">
                   {/* <img src="/images/qr.svg" alt="click here" style={{ backgroundColor: colorsValue }} /> */}
-                  <Qr />
+                  <Qr color={colorsValue} />
                 </div>
                 <div className="galleryFooter">
-                  <div className="galleryButtons">
+                  {/* <div className="galleryButtons">
                     <Button>
                       <img src="/images/undo-icon.svg" alt="click here" />
                     </Button>
                     <Button>
                       <img src="/images/redo-icon.svg" alt="click here" />
                     </Button>
-                  </div>
+                  </div> */}
                   {/* <span>Unsaved changes</span> */}
-                  <div className="zoomButtons">
+                  {/* <div className="zoomButtons">
                     <div className="galleryButtons">
                       <Button style={{ marginRight: '1rem' }}>
                         <img src="/images/hand-icon.svg" alt="click here" />
@@ -123,7 +123,7 @@ const Design = ({ qrImage }) => {
                         +
                       </Button>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Col>
