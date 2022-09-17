@@ -1,27 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Input, Form, Modal } from 'antd';
-import { Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { CartArea } from './cart.style';
-import { createOrder } from '../../hooks/requests';
-import { loadStripe } from '@stripe/stripe-js';
+import React, { useEffect, useState } from "react";
+import { Button, Input, Form, Modal } from "antd";
+import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { CartArea } from "./cart.style";
+import { createOrder } from "../../hooks/requests";
+import { loadStripe } from "@stripe/stripe-js";
 
-import { CardElement, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import {
+  CardElement,
+  PaymentElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
 
-import { useSelector } from 'react-redux';
-import PaymentForm from '../../components/PaymentForm';
+import { useSelector } from "react-redux";
+import PaymentForm from "../../components/PaymentForm";
 
 const Shipping = 10;
 
 const Items = [
   {
-    name: 'Design # 1',
-    image: '/images/qr-code-scanner.svg',
+    name: "Design # 1",
+    image: "/images/qr-code-scanner.svg",
     price: 99,
   },
   {
-    name: 'Design # 2',
-    image: '/images/qr-code-scanner.svg',
+    name: "Design # 2",
+    image: "/images/qr-code-scanner.svg",
     price: 89,
   },
 ];
@@ -35,7 +40,7 @@ const Cart = () => {
   // Stripe Modal
   const [visible, setVisible] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState('Content of the modal');
+  const [modalText, setModalText] = useState("Content of the modal");
   const stripe = useStripe();
   const elements = useElements();
 
@@ -44,7 +49,7 @@ const Cart = () => {
   };
 
   const handleOk = () => {
-    setModalText('The modal will be closed after two seconds');
+    setModalText("The modal will be closed after two seconds");
     setConfirmLoading(true);
     setTimeout(() => {
       setVisible(false);
@@ -53,13 +58,13 @@ const Cart = () => {
   };
 
   const handleCancel = () => {
-    console.log('Clicked cancel button');
+    console.log("Clicked cancel button");
     setVisible(false);
   };
 
   const onPlacingOrder = async (values) => {
     const item = {
-      price: 'price_1LdxBVLwxaQeH6Swvi7otcJz',
+      price: "price_1LdxBVLwxaQeH6Swvi7otcJz",
       quantity: 1,
     };
 
@@ -71,7 +76,7 @@ const Cart = () => {
 
     const checkoutOptions = {
       lineItems: [item],
-      mode: 'payment',
+      mode: "payment",
       successUrl: `${window.location.origin}/order`,
       cancelUrl: `${window.location.origin}/cancel`,
     };
@@ -80,21 +85,27 @@ const Cart = () => {
 
     const getStripe = () => {
       if (!stripePromise) {
-        stripePromise = loadStripe('pk_test_51I3NaSLwxaQeH6SwVG0oERyzzTxah6UZpMr4Lnf0BweKTq3IUr1dFJpjjIOIszdMmKCE2F44hCDKNeO9TfdQ2k9K007jrA0FaH');
+        stripePromise = loadStripe(
+          "pk_test_51I3NaSLwxaQeH6SwVG0oERyzzTxah6UZpMr4Lnf0BweKTq3IUr1dFJpjjIOIszdMmKCE2F44hCDKNeO9TfdQ2k9K007jrA0FaH"
+        );
       }
 
       return stripePromise;
     };
 
     const redirectToCheckout = async () => {
-      console.log('redirectToCheckout');
+      console.log("redirectToCheckout");
       const stripe = await getStripe();
-      console.log(stripe.elements()['_id']);
+      console.log(stripe.elements()["_id"]);
 
-      const orderWithId = { ...orderItemList, paymentId: stripe.elements()['_id'], status: 'completed' };
+      const orderWithId = {
+        ...orderItemList,
+        paymentId: stripe.elements()["_id"],
+        status: "completed",
+      };
 
       const { error } = await stripe.redirectToCheckout(checkoutOptions);
-      console.log('Stripe checkout error', error);
+      console.log("Stripe checkout error", error);
     };
 
     redirectToCheckout();
@@ -123,13 +134,13 @@ const Cart = () => {
     const card = elements.getElement(CardElement);
     const result1 = await stripe.createToken(card);
 
-    console.log('Result1 : ', result1.token.card.id);
+    console.log("Result1 : ", result1.token.card.id);
 
     setOrderItems((prev) => {
       return {
         ...prev,
         paymentId: result1.token.card.id,
-        status: 'completed',
+        status: "completed",
       };
     });
 
@@ -139,7 +150,7 @@ const Cart = () => {
       //`Elements` instance that was used to create the Payment Element
       elements,
       confirmParams: {
-        return_url: 'http://localhost:3000/order',
+        return_url: "http://localhost:3000/order",
       },
     });
 
@@ -161,7 +172,13 @@ const Cart = () => {
 
   return (
     <>
-      <Modal title="Card Details" visible={visible} onOk={handleOk} confirmLoading={confirmLoading} onCancel={handleCancel}>
+      <Modal
+        title="Card Details"
+        visible={visible}
+        onOk={handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+      >
         <form onSubmit={handleSubmit}>
           <CardElement />
           {/* <PaymentElement /> */}
@@ -182,7 +199,7 @@ const Cart = () => {
               <Col lg={8}>
                 <div className="payMethods">
                   <h2>Pay with</h2>
-                  <div className="payButtons">
+                  {/* <div className="payButtons">
                     <a href="#">
                       <img src="/images/shop-pay.png" alt="click here" />
                     </a>
@@ -192,26 +209,26 @@ const Cart = () => {
                     <a href="#">
                       <img src="/images/google-pay.png" alt="click here" />
                     </a>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="contactInfo">
                   <Row>
                     <Col md={12}>
-                      <h4 style={{ marginBottom: '0' }}>Contact Information</h4>
+                      <h4 style={{ marginBottom: "0" }}>Contact Information</h4>
                       <Form.Item
                         label=""
                         name="email"
                         rules={[
                           {
                             required: true,
-                            message: 'Please input your Email!',
+                            message: "Please input your Email!",
                           },
                         ]}
                       >
                         <Input placeholder="Email" />
                       </Form.Item>
                     </Col>
-                    <h4 style={{ margin: '0.5rem 0 0' }}>Shipping Address</h4>
+                    <h4 style={{ margin: "0.5rem 0 0" }}>Shipping Address</h4>
                     <Col md={6}>
                       <Form.Item
                         label=""
@@ -219,7 +236,7 @@ const Cart = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input first name!',
+                            message: "Please input first name!",
                           },
                         ]}
                       >
@@ -233,7 +250,7 @@ const Cart = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input last name!',
+                            message: "Please input last name!",
                           },
                         ]}
                       >
@@ -247,7 +264,7 @@ const Cart = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input Address!',
+                            message: "Please input Address!",
                           },
                         ]}
                       >
@@ -261,7 +278,7 @@ const Cart = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input Country!',
+                            message: "Please input Country!",
                           },
                         ]}
                       >
@@ -275,7 +292,7 @@ const Cart = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input State!',
+                            message: "Please input State!",
                           },
                         ]}
                       >
@@ -290,7 +307,7 @@ const Cart = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input City!',
+                            message: "Please input City!",
                           },
                         ]}
                       >
@@ -305,7 +322,7 @@ const Cart = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input Zip Code!',
+                            message: "Please input Zip Code!",
                           },
                         ]}
                       >
@@ -319,7 +336,7 @@ const Cart = () => {
                         rules={[
                           {
                             required: true,
-                            message: 'Please input Phone number!',
+                            message: "Please input Phone number!",
                           },
                         ]}
                       >
@@ -340,11 +357,11 @@ const Cart = () => {
                       </div>
                     ))}
                   </div>
-                  <div className="discount">
+                  {/* <div className="discount">
                     <Input placeholder="Gift card or discount code" />
                     <Button>Apply</Button>
-                  </div>
-                  <div className="subTotal">
+                  </div> */}
+                  <div className="subTotal mt-2">
                     <span>Subtotal</span>
                     <span>$ {amount}</span>
                   </div>
@@ -356,6 +373,7 @@ const Cart = () => {
                     <div>
                       <h6>Total</h6>
                       <Form.Item
+                        className="mb-0"
                         label=""
                         name="amount"
                         rules={[
@@ -367,13 +385,13 @@ const Cart = () => {
                         <p>${amount + 10}</p>
                       </Form.Item>
                     </div>
-                    <span>including $ 18.18 in taxes</span>
+                    {/* <span>including $ 18.18 in taxes</span> */}
                   </div>
                 </div>
               </Col>
               <Col lg={8}>
                 <div className="order">
-                  <Link to="/design">Return to cart</Link>
+                  {/* <Link to="/design">Return to cart</Link> */}
                   {/* <Link to="/order"> */}
 
                   <Button htmlType="submit">Place Order</Button>

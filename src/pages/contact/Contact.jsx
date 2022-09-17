@@ -1,6 +1,9 @@
 import './contact.scss';
 import { useState } from 'react';
 
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
+
 const API_URL = 'https://qrprinttechnovation.herokuapp.com';
 
 const Contact = () => {
@@ -39,7 +42,14 @@ const Contact = () => {
 
     const data = await response.json();
 
-    console.log(data);
+    Swal.fire({
+      title: data === 'Message sent to Admin sucessfully' ? 'Sent' : 'Error!',
+      text: data,
+      icon: data === 'Message sent to Admin sucessfully' ? 'success' : 'error',
+      confirmButtonText: 'Cool',
+    });
+
+    console.log('Form error: ', data);
   };
 
   return (
@@ -65,38 +75,38 @@ const Contact = () => {
             <div className="form-row">
               <div className="form-input">
                 <label htmlFor="firstname">First Name:</label>
-                <input type="text" onChange={(e) => setFirstName(e.target.value)} />
+                <input type="text" required onChange={(e) => setFirstName(e.target.value)} />
               </div>
               <div className="form-input resp">
                 <label htmlFor="lastname">Last Name:</label>
-                <input type="text" onChange={(e) => setLastName(e.target.value)} />
+                <input type="text" required onChange={(e) => setLastName(e.target.value)} />
               </div>
             </div>
             <div className="form-row">
               <div className="form-input">
                 <label htmlFor="email">Email:</label>
-                <input type="email" onChange={(e) => setEmail(e.target.value)} />
+                <input type="email" required onChange={(e) => setEmail(e.target.value)} />
               </div>
               <div className="form-input resp">
                 <label htmlFor="phone">Phone #:</label>
-                <input type="tel" onChange={(e) => setPhone(e.target.value)} />
+                <input type="tel" required onChange={(e) => setPhone(e.target.value)} />
               </div>
             </div>
             <div className="form-row">
               <div className="form-input">
                 <label htmlFor="phone">Subject:</label>
-                <input type="text" onChange={(e) => setSubject(e.target.value)} />
+                <input type="text" required onChange={(e) => setSubject(e.target.value)} />
               </div>
             </div>
             <div className="form-row">
               <div className="form-input message">
                 <label htmlFor="phone">Your Message:</label>
-                <textarea name="" id=""></textarea>
+                <textarea name="" id="" onChange={(e) => setMessage(e.target.value)}></textarea>
                 {/* <input type="text" onChange={(e) => setMessage(e.target.value)} /> */}
               </div>
             </div>
             <div className="form-row">
-              <button className="contactBtn" onClick={sendMessage}>
+              <button className="contactBtn" type="submit" onClick={sendMessage}>
                 Send Enquiry
               </button>
             </div>

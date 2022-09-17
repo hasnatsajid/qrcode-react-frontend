@@ -114,7 +114,7 @@ const Home = () => {
         </DynamicCard>
         <ScanDesign>
           <p>We also offer a variety size to print your QR WIFI Artwork. Both small and large format sizes from desktop decor to coffee shop entry.</p>
-          <Link to="/design">
+          <Link to="/generateQr">
             <GenerateBtn>Design Yours</GenerateBtn>
           </Link>
           <ScanImage>

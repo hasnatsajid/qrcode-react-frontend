@@ -19,7 +19,7 @@ export const FooterArea = styled.div`
     .footerBrand {
       text-decoration: none;
       img {
-        width: 240px;
+        width: 95%;
         @media (max-width: 992px) {
           width: 170px;
         }

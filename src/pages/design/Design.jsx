@@ -73,10 +73,10 @@ const Design = ({ qrImage }) => {
               <div className="gallery">
                 <div className="galleryHead">
                   <h1>CANVAS GALLERY</h1>
-                  <div>
+                  {/* <div>
                     <a href="#">Edit</a>
                     <a href="#">Preview</a>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="galleryImage">
                   {/* <img src="/images/qr.svg" alt="click here" style={{ backgroundColor: colorsValue }} /> */}
@@ -131,41 +131,26 @@ const Design = ({ qrImage }) => {
               <h5 className="productHeading">Product details</h5>
               <div className="productDetail">
                 <div className="products">
-                  <div className="productInfo">
-                    <div className="infoHead">
-                      <span>Size . {array.indexOf(dropValue) + 1}</span>
-                      <Dropdown overlay={sizesMenu} trigger={['click']}>
-                        <a onClick={(e) => e.preventDefault()}>
-                          <Space>
-                            <span>All Sizes</span>
-                            <img src="/images/dropdown-icon.svg" alt="click here" />
-                          </Space>
-                        </a>
-                      </Dropdown>
-                    </div>
-                    <div className="infoArea">
-                      <img src="/images/bordered-icon.svg" alt="click here" />
-                      <span>{dropValue}</span>
-                    </div>
-                  </div>
                   <h6 style={{ margin: '1rem 0' }}>Your design</h6>
                   <div className="productInfo">
                     <div className="infoHead">
-                      <Radio className="collapseRadio">{colorsValue}</Radio>
                       <Dropdown overlay={colorsMenu} trigger={['click']}>
-                        <a onClick={(e) => e.preventDefault()}>
-                          <Space>
-                            <img src="/images/dropdown-icon.svg" alt="click here" />
-                          </Space>
-                        </a>
+                        <div className="d-flex justify-content-between" style={{ flex: 1 }}>
+                          <p className="mb-0"> {colorsValue}</p>
+                          <a onClick={(e) => e.preventDefault()}>
+                            <Space>
+                              <img src="/images/dropdown-icon.svg" alt="click here" />
+                            </Space>
+                          </a>
+                        </div>
                       </Dropdown>
                     </div>
                   </div>
                 </div>
-                <div className="printing">
+                {/* <div className="printing">
                   <span style={{ marginRight: '1rem' }}>Printing Settings:</span>
                   <Checkbox>Print on sides</Checkbox>
-                </div>
+                </div> */}
                 {/* <div className="uploadImg">
                   <div className="designImage">
                     <img src="/images/canvas-image.png" alt="click here" />
